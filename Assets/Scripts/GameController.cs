@@ -4,8 +4,7 @@ using System.Collections;
 public class GameController : MonoBehaviour {
 
 	public int zPos = 24;
-	public int[] lizardLeftPositions = {-1, 1};
-	public int[] lizardRightPositions = {-2, 2};
+	public int[] xPos = {-2, -1, 1, 2};
 	public Transform hazardObject;
 	public Transform rewardObject;
 

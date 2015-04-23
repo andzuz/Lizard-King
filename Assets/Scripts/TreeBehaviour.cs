@@ -62,10 +62,10 @@ public class TreeBehaviour : MonoBehaviour {
 		float theta = Mathf.Asin (x.magnitude);
 		Vector3 w = x.normalized * theta / Time.fixedDeltaTime;
 
-		Quaternion q = transform.rotation * rigidbody.inertiaTensorRotation;
-		Vector3 T = q * Vector3.Scale (rigidbody.inertiaTensor, (Quaternion.Inverse (q) * w));
+		Quaternion q = transform.rotation * GetComponent<Rigidbody>().inertiaTensorRotation;
+		Vector3 T = q * Vector3.Scale (GetComponent<Rigidbody>().inertiaTensor, (Quaternion.Inverse (q) * w));
 
-		rigidbody.AddTorque (T, ForceMode.Impulse);
+		GetComponent<Rigidbody>().AddTorque (T, ForceMode.Impulse);
 
 	}
 	
