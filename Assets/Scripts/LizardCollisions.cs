@@ -35,7 +35,6 @@ public class LizardCollisions : MonoBehaviour {
 			if(!bonusController.IsInvisibilityEnabled()) {
 				gameController.GameOver();
 			} else {
-				Debug.Log ("MASZ NIEWIDZIALNOSC KURWO");
 			}
 		} else if (tag.Equals ("Reward")) {
 			gameController.AddScore (scoreValue);

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class GameController : MonoBehaviour {
@@ -7,12 +8,17 @@ public class GameController : MonoBehaviour {
 	private int score = 0;
 	private bool isPaused = false;
 
+	public Text scoreText;
 	public BonusController bonusController;
 	public Spawner spawner;
 	public int maxSpeed;
 
-	public const int POINTS_TO_BONUS = 20;
+	public const int POINTS_TO_BONUS = 15;
 	public const int BOOST_SPEED_AMOUNT = 1;
+
+	void Start() {
+		scoreText.text = "0";
+	}
 
 	void Update() {
 		if (Input.GetKeyDown (KeyCode.P)) {
@@ -46,7 +52,7 @@ public class GameController : MonoBehaviour {
 			BoostSpeed();
 		}
 
-		Debug.Log ("Score: " + score);
+		scoreText.text = score.ToString();
 	}
 
 	public void PauseGame() {

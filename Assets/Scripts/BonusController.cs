@@ -1,17 +1,24 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class BonusController : MonoBehaviour {
+
+	public Text bonusText;
 
 	private BonusType bonusType;
 	private GameController gameController;
 	private const float INSECT_SWARM_DURATION = 5.0f;
 	private const float INVISIBILITY_DURATION = 5.0f;
+	private const float BONUS_TEXT_DURATION = 3.0f;
+	private const string SWARM_TEXT = "INSECT SWARM!";
+	private const string INVISIBILITY_TEXT = "INVISIBILITY!";
 	private bool timing;
 	private float countdown;
 
 	// Use this for initialization
 	void Start () {
+		bonusText.enabled = false;
 	}
 	
 	// Update is called once per frame
@@ -27,18 +34,29 @@ public class BonusController : MonoBehaviour {
 
 	void EnableInvisibility() {
 		EnableBonus (BonusType.INVISIBILITY);
+		ShowBonusText (INVISIBILITY_TEXT);
 		StartTimer (INVISIBILITY_DURATION);
 	}
 
 	void EnableInsectSwarm() {
 		EnableBonus(BonusType.INSECT_SWARM);
+		ShowBonusText (SWARM_TEXT);
 		StartTimer(INSECT_SWARM_DURATION);
+	}
+
+	void ShowBonusText(string text) {
+		bonusText.enabled = true;
+		bonusText.text = text;
 	}
 
 	void DecrementTimerIfRunning() {
 		if(timing)
 		{
-			countdown -= Time.deltaTime;
+			countdown -= Time.deltaTime;;
+
+			if(countdown <= BONUS_TEXT_DURATION) {
+				bonusText.enabled = false;
+			}
 
 			if(countdown <= 0)
 			{
@@ -75,10 +93,10 @@ public class BonusController : MonoBehaviour {
 
 		if (choice == 1) {
 			Debug.Log ("**** INSECT SWARM *****");
-			EnableBonus(BonusType.INSECT_SWARM);
+			EnableInsectSwarm();
 		} else {
 			Debug.Log ("**** INVISIBILITY *****");
-			EnableBonus(BonusType.INVISIBILITY);
+			EnableInvisibility();
 		}
 	}
 

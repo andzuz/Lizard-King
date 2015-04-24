@@ -17,7 +17,6 @@ public class Mover : MonoBehaviour {
 		speed = gameController.getSpeed ();
 
 		if (lastKnownSpeed != speed) {
-			Debug.Log ("NOWY SPEED " + speed);
 			GetComponent<Rigidbody>().velocity = transform.forward * -speed;
 			lastKnownSpeed = speed;
 		}
