@@ -3,6 +3,9 @@ using System.Collections;
 
 public class GameController : MonoBehaviour {
 
+	private int speed = 10;
+	private int score = 0;
+	private BonusController bonusController;
 	public float waveWait;
 	public float spawnWait;
 	public float startWait;
@@ -13,9 +16,28 @@ public class GameController : MonoBehaviour {
 	public Transform rewardObject;
 	public const int WAVE_HAZARD = 0;
 	public const int WAVE_REWARD = 1;
+	public const int POINTS_TO_BONUS = 20;
+	public const int BOOST_SPEED_AMOUNT = 1;
+	public int maxSpeed;
 
 	void Start () {
+		InitBonusController ();
+		Debug.Log (bonusController);
 		BeginSpawning ();
+	}
+
+	void InitBonusController() {
+		GameObject bonusControllerObject = GameObject.FindWithTag ("Bonus");
+		
+		if (bonusControllerObject != null) {
+			bonusController = bonusControllerObject.GetComponent <BonusController>();
+		}
+	}
+
+	void BoostSpeed() {
+		if (speed < maxSpeed) {
+			speed += BOOST_SPEED_AMOUNT;
+		}
 	}
 
 	void BeginSpawning() {
@@ -29,7 +51,12 @@ public class GameController : MonoBehaviour {
 		{
 			for (int i = 0; i < hazardCount; i++)
 			{
-				SpawnRandom();
+				if(bonusController.IsSwarmEnabled()) {
+					SpawnReward();
+				} else {
+					SpawnRandom();
+				}
+
 				yield return new WaitForSeconds (spawnWait);
 			}
 			yield return new WaitForSeconds (waveWait);
@@ -60,13 +87,24 @@ public class GameController : MonoBehaviour {
 		Instantiate (rewardObject, spawnPosition, spawnRotation);
 	}
 
-	void OnTriggerExit(Collider other) {
-		string tag = other.tag;
-		Debug.Log (tag);
+	public int getSpeed() {
+		return speed;
+	}
 
-		if (tag.Equals("Hazard") || tag.Equals("Reward")) {
-			Destroy (other.gameObject);
+	public void AddScore (int amount) {
+		this.score += amount;
+
+		if (this.score % 20 == 0) {
+
+		} else if (this.score % 5 == 0) {
+			BoostSpeed();
 		}
+
+		Debug.Log ("Score: " + score);
+	}
+
+	public void GameOver () {
+
 	}
 
 }
