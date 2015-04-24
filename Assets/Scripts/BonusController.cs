@@ -19,7 +19,9 @@ public class BonusController : MonoBehaviour {
 		if (Input.GetKeyDown (KeyCode.Z)) {
 			EnableInsectSwarm ();
 		} else if (Input.GetKeyDown (KeyCode.X)) {
-			EnableInvisibility();
+			EnableInvisibility ();
+		} else if (Input.GetKeyDown (KeyCode.K)) {
+			Time.timeScale = 0;
 		}
 
 		DecrementTimerIfRunning ();

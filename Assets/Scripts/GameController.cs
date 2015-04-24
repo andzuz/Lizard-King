@@ -5,6 +5,7 @@ public class GameController : MonoBehaviour {
 
 	private int speed = 10;
 	private int score = 0;
+	private bool isPaused = false;
 	private BonusController bonusController;
 	public float waveWait;
 	public float spawnWait;
@@ -32,6 +33,19 @@ public class GameController : MonoBehaviour {
 		if (bonusControllerObject != null) {
 			bonusController = bonusControllerObject.GetComponent <BonusController>();
 		}
+	}
+
+	void Update() {
+		if (Input.GetKeyDown (KeyCode.P)) {
+			TogglePause ();
+		} else if (Input.GetKeyDown (KeyCode.R) && isPaused) {
+			RestartGame();
+		}
+	}
+
+	void RestartGame() {
+		Application.LoadLevel(Application.loadedLevel);
+		UnpauseGame();
 	}
 
 	void BoostSpeed() {
@@ -103,8 +117,26 @@ public class GameController : MonoBehaviour {
 		Debug.Log ("Score: " + score);
 	}
 
-	public void GameOver () {
+	public void PauseGame() {
+		Time.timeScale = 0;
+		isPaused = true;
+	}
 
+	public void UnpauseGame() {
+		Time.timeScale = 1;
+		isPaused = false;
+	}
+
+	public void TogglePause() {
+		if (isPaused) {
+			UnpauseGame ();
+		} else {
+			PauseGame ();
+		}
+	}
+
+	public void GameOver () {
+		PauseGame ();
 	}
 
 }
