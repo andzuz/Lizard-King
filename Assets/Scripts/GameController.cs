@@ -94,8 +94,8 @@ public class GameController : MonoBehaviour {
 	public void AddScore (int amount) {
 		this.score += amount;
 
-		if (this.score % 20 == 0) {
-
+		if (this.score % POINTS_TO_BONUS == 0) {
+			bonusController.EnableRandomBonus();
 		} else if (this.score % 5 == 0) {
 			BoostSpeed();
 		}

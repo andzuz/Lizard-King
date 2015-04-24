@@ -70,6 +70,18 @@ public class BonusController : MonoBehaviour {
 		bonusType = BonusType.NONE;
 	}
 
+	public void EnableRandomBonus() {
+		int choice = Random.Range (0, 2);
+
+		if (choice == 1) {
+			Debug.Log ("**** INSECT SWARM *****");
+			EnableBonus(BonusType.INSECT_SWARM);
+		} else {
+			Debug.Log ("**** INVISIBILITY *****");
+			EnableBonus(BonusType.INVISIBILITY);
+		}
+	}
+
 	public enum BonusType {
 		NONE,
 		INSECT_SWARM,
