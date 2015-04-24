@@ -9,28 +9,10 @@ public class GameController : MonoBehaviour {
 
 	public BonusController bonusController;
 	public Spawner spawner;
-	public float waveWait;
-	public float spawnWait;
-	public float startWait;
-	public int hazardCount = 5;
 	public int maxSpeed;
 
 	public const int POINTS_TO_BONUS = 20;
 	public const int BOOST_SPEED_AMOUNT = 1;
-
-
-	void Start () {
-		//InitBonusController ();
-		BeginSpawning ();
-	}
-
-	/*void InitBonusController() {
-		GameObject bonusControllerObject = GameObject.FindWithTag ("Bonus");
-		
-		if (bonusControllerObject != null) {
-			bonusController = bonusControllerObject.GetComponent <BonusController>();
-		}
-	}*/
 
 	void Update() {
 		if (Input.GetKeyDown (KeyCode.P)) {
@@ -48,29 +30,6 @@ public class GameController : MonoBehaviour {
 	void BoostSpeed() {
 		if (speed < maxSpeed) {
 			speed += BOOST_SPEED_AMOUNT;
-		}
-	}
-
-	void BeginSpawning() {
-		StartCoroutine (SpawnWaves ());
-	}
-
-	IEnumerator SpawnWaves ()
-	{
-		yield return new WaitForSeconds (startWait);
-		while (true)
-		{
-			for (int i = 0; i < hazardCount; i++)
-			{
-				if(bonusController.IsSwarmEnabled()) {
-					spawner.SpawnReward();
-				} else {
-					spawner.SpawnRandom();
-				}
-
-				yield return new WaitForSeconds (spawnWait);
-			}
-			yield return new WaitForSeconds (waveWait);
 		}
 	}
 
