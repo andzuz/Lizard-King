@@ -44,6 +44,32 @@ public class LeftLizardBehaviour : MonoBehaviour {
 			}
 			break;
 		}
+
+		DetectFingerInput();
+	}
+
+	void DetectFingerInput() {
+		int screenWidth = Screen.width;
+
+		for(int i = 0; i < Input.touchCount; i++) {
+			Touch touch = Input.GetTouch(i);
+
+			if(touch.phase == TouchPhase.Began) {
+				switch (lizardType) {
+				case LizardType.LEFT:
+					if(touch.position.x < screenWidth/2) {
+						ToggleDirection();
+					}
+					break;
+					
+				case LizardType.RIGHT:
+					if(touch.position.x > screenWidth/2) {
+						ToggleDirection();
+					}
+					break;
+				}
+			}
+		}
 	}
 
 	private void ToggleDirection() {
