@@ -2,8 +2,8 @@
 using System.Collections;
 
 public class TreeModelBehaviour : MonoBehaviour {	
-
-	public GameController gameController;
+	
+	public Rigidbody hazardBody;
 	public float scaleFactor;
 
 	private Renderer renderer;
@@ -11,20 +11,10 @@ public class TreeModelBehaviour : MonoBehaviour {
 	
 	void Start () {
 		this.renderer = GetComponent<Renderer>();
-		initGameController();
-	}
-
-	void initGameController ()
-	{
-		GameObject gameControllerObject = GameObject.FindWithTag ("GameController");
-		
-		if (gameControllerObject != null) {
-			gameController = gameControllerObject.GetComponent <GameController>();
-		}
 	}
 
 	void Update () {
-		speed = gameController.getSpeed();
+		speed = -hazardBody.velocity.z;
 		float offset = Time.time * speed / scaleFactor;
 		renderer.material.SetTextureOffset("_MainTex", new Vector2(0, offset));
 	}
