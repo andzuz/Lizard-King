@@ -6,6 +6,7 @@ public class LeftLizardBehaviour : MonoBehaviour {
 	public float timeTakenDuringLerp;
 	public float distanceToMove;
 	public LizardType lizardType;
+	public GameObject modelObject;
 
 	private int direction;
 	private bool _isLerping;
