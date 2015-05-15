@@ -30,7 +30,6 @@ public class LizardModelBehaviour : MonoBehaviour {
 	}
 
 	public void MakeVisible() {
-
 		this.renderer.material.color = new Color(r, g, b, 1.0f);
 	}
 

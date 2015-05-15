@@ -4,7 +4,7 @@ using System.Collections;
 
 public class GameController : MonoBehaviour {
 
-	private int speed = 10;
+	private float speed = 10.0f;
 	private int score = 0;
 	private bool isPaused = false;
 
@@ -37,9 +37,18 @@ public class GameController : MonoBehaviour {
 		if (speed < maxSpeed) {
 			speed += BOOST_SPEED_AMOUNT;
 		}
+		//StartCoroutine(BoostSpeedAsync());
 	}
 
-	public int getSpeed() {
+	IEnumerator BoostSpeedAsync() {
+		for (float f = 0f; f < BOOST_SPEED_AMOUNT; f += 0.001f) {
+			speed += 0.001f;
+			Debug.Log(speed);
+			yield return null;
+		}
+	}
+
+	public float getSpeed() {
 		return speed;
 	}
 
