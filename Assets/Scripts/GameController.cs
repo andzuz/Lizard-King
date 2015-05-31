@@ -9,7 +9,6 @@ public class GameController : MonoBehaviour {
 	private bool isPaused = false;
 
 	public GUIStyle scoreLabelStyle;
-	public Text scoreText;
 	public BonusController bonusController;
 	public Spawner spawner;
 	public int maxSpeed;
@@ -18,7 +17,7 @@ public class GameController : MonoBehaviour {
 	public const int BOOST_SPEED_AMOUNT = 1;
 
 	void Start() {
-		scoreText.text = "0";
+
 	}
 
 	void Update() {
@@ -61,8 +60,6 @@ public class GameController : MonoBehaviour {
 		} else if (this.score % 5 == 0) {
 			BoostSpeed();
 		}
-
-		scoreText.text = score.ToString();
 	}
 
 	public void PauseGame() {
