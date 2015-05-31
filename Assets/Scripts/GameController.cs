@@ -8,6 +8,7 @@ public class GameController : MonoBehaviour {
 	private int score = 0;
 	private bool isPaused = false;
 
+	public GUIStyle scoreLabelStyle;
 	public Text scoreText;
 	public BonusController bonusController;
 	public Spawner spawner;
@@ -84,6 +85,22 @@ public class GameController : MonoBehaviour {
 
 	public void GameOver () {
 		PauseGame ();
+	}
+
+	void OnGUI() {
+		if(isPaused) {
+			int buttonWidth = 100;
+			int buttonHeight = 50;
+			
+			float buttonX = (Screen.width - buttonWidth) / 2.0f;
+			float buttonY = (Screen.height - buttonHeight) / 2.0f;
+			
+			if( GUI.Button( new Rect(buttonX, buttonY, buttonWidth, buttonHeight), "RESTART") ) {
+				RestartGame();
+			}
+		}
+		
+		GUI.Label( new Rect(10, 10, 100, 20), score.ToString(), scoreLabelStyle );
 	}
 
 }
