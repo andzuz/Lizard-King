@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class BonusController : MonoBehaviour {
 
-	public GUIStyle bonusLabelStyle;
+	public Text bonusLabel;
 
 	private BonusType bonusType;
 	private GameController gameController;
@@ -32,6 +32,19 @@ public class BonusController : MonoBehaviour {
 		}
 
 		DecrementTimerIfRunning ();
+		ShowBonusLabelIfNeeded ();
+	}
+
+	void ShowBonusLabelIfNeeded () {
+		if (bonusTextEnabled) {
+			if (!bonusLabel.enabled) {
+				bonusLabel.enabled = true;
+			}
+			bonusLabel.text = bonusTextText;
+		}
+		else {
+			bonusLabel.enabled = false;
+		}
 	}
 
 	void EnableInvisibility() {
@@ -106,18 +119,6 @@ public class BonusController : MonoBehaviour {
 		NONE,
 		INSECT_SWARM,
 		INVISIBILITY
-	}
-
-	void OnGUI() {
-		if(bonusTextEnabled) {
-			int w = 100;
-			int h = 50;
-			
-			float x = (Screen.width - w) / 2.0f;
-			float y = (Screen.height - h) / 2.0f;
-			
-			GUI.Label( new Rect(x, y, w, h), bonusTextText, bonusLabelStyle);
-		}
 	}
 
 }
