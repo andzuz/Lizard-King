@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TreeModelBehaviour : MonoBehaviour {	
+public class TextureMovement : MonoBehaviour {	
 	
 	public Rigidbody hazardBody;
 	public float scaleFactor;
+	public string texture;
 
 	private Renderer renderer;
 	private float speed;
@@ -16,6 +17,6 @@ public class TreeModelBehaviour : MonoBehaviour {
 	void Update () {
 		speed = -hazardBody.velocity.z;
 		float offset = Time.time * speed / scaleFactor;
-		renderer.material.SetTextureOffset("_MainTex", new Vector2(0, offset));
+		renderer.material.SetTextureOffset(texture, new Vector2(0, offset));
 	}
 }
