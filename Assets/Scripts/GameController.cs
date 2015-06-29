@@ -8,6 +8,11 @@ public class GameController : MonoBehaviour {
 	private int score = 0;
 	private bool isPaused = false;
 
+	public GameObject panel;
+	public Text highScoreText;
+	public Button retryButton;
+	public Button menuButton;
+	public Button pauseButton;
 	public Text scoreLabel;
 	public BonusController bonusController;
 	public Spawner spawner;
@@ -15,9 +20,21 @@ public class GameController : MonoBehaviour {
 
 	public const int POINTS_TO_BONUS = 15;
 	public const int BOOST_SPEED_AMOUNT = 1;
+	private const string HIGH_SCORE_KEY = "HSK";
 
 	void Start() {
+		retryButton.onClick.AddListener(delegate {
+			RestartGame();
+		});
+		menuButton.onClick.AddListener(delegate {
+			UnpauseGame();
+			Application.LoadLevel("Menu");
+		});
+		pauseButton.onClick.AddListener(delegate {
+			TogglePause();
+		});
 
+		panel.SetActive(false);
 	}
 
 	void Update() {
@@ -82,8 +99,30 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
+	void WriteScore ()
+	{
+		PlayerPrefs.SetInt(HIGH_SCORE_KEY, score);
+	}
+
+	void WriteScoreIfHigh ()
+	{
+		int savedScore = PlayerPrefs.GetInt(HIGH_SCORE_KEY);
+		if(savedScore < score) {
+			WriteScore();
+		}
+	}
+
+	void UpdateHighScore ()
+	{
+		int savedScore = PlayerPrefs.GetInt(HIGH_SCORE_KEY);
+		highScoreText.text = "HIGH SCORE IS " + savedScore;
+	}
+
 	public void GameOver () {
+		WriteScoreIfHigh();
 		PauseGame ();
+		UpdateHighScore();
+		panel.SetActive(true);
 	}
 
 }

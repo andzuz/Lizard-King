@@ -3,10 +3,12 @@ using System.Collections;
 
 public class GameAreaCollisions : MonoBehaviour {
 	private GameController gameController;
+	private AudioSource failAudio;
 
 	void Start() {
 		GameObject gameControllerObject = GameObject.FindWithTag ("GameController");
-		
+		failAudio = GetComponent<AudioSource>();
+
 		if (gameControllerObject != null) {
 			gameController = gameControllerObject.GetComponent <GameController>();
 		}
@@ -20,6 +22,7 @@ public class GameAreaCollisions : MonoBehaviour {
 			Destroy (other.gameObject);
 
 			if (tag.Equals("Reward")) {
+				failAudio.Play();
 				gameController.GameOver();
 			}
 		} 

@@ -6,6 +6,7 @@ public class BonusController : MonoBehaviour {
 
 	public Text bonusLabel;
 
+	private AudioSource bonusAudio;
 	private BonusType bonusType;
 	private GameController gameController;
 	private const float INSECT_SWARM_DURATION = 5.0f;
@@ -21,6 +22,7 @@ public class BonusController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		bonusTextEnabled = false;
+		bonusAudio = GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
@@ -104,6 +106,7 @@ public class BonusController : MonoBehaviour {
 	}
 
 	public void EnableRandomBonus() {
+		bonusAudio.Play();
 		int choice = Random.Range (0, 2);
 
 		if (choice == 1) {

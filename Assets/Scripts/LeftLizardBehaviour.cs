@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.EventSystems;
 
 public class LeftLizardBehaviour : MonoBehaviour {
 	
@@ -54,7 +55,9 @@ public class LeftLizardBehaviour : MonoBehaviour {
 		for(int i = 0; i < Input.touchCount; i++) {
 			Touch touch = Input.GetTouch(i);
 
-			if(touch.phase == TouchPhase.Began) {
+			if(EventSystem.current.IsPointerOverGameObject(touch.fingerId)) {
+				return;
+			} else if(touch.phase == TouchPhase.Began) {
 				switch (lizardType) {
 				case LizardType.LEFT:
 					if(touch.position.x < screenWidth/2) {
